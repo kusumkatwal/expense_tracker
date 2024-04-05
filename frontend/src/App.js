@@ -6,6 +6,8 @@ import Orb from './Components/Orb/Orb'
 import Navigation from './Components/Navigation/Navigation'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income'
+// import Login from './Components/Login/login'
+// import Registration from './Components/Registration/Registration';
 import Expenses from './Components/Expenses/Expenses';
 import { useGlobalContext } from './context/globalContext';
 
@@ -25,6 +27,10 @@ function App() {
         return <Income />
       case 4: 
         return <Expenses />
+      case 5: 
+      //  return <Registration/>
+      case 6: 
+        // return <Login/>
       default: 
         return <Dashboard />
     }
@@ -49,7 +55,8 @@ function App() {
 
 const AppStyled = styled.div`
   height: 100vh;
-  background-image: url(${props => props.bg});
+  /*background-image: url(${props => props.bg});*/
+  background-color : #ECF0F7;
   position: relative;
   main{
     flex: 1;

@@ -14,6 +14,27 @@ export const GlobalProvider = ({children}) => {
     const [error, setError] = useState(null)
 
     //calculate incomes
+    const register = async (userDetails) => {
+        const response = await axios.post(`${BASE_URL}register`, userDetails)
+        .catch((err) => {
+            setError(err.response.data.message)
+        })
+        login()
+    }
+
+    const login = async (login_data) => {
+        const response = await axios.post(`${BASE_URL}login`, login_data)
+        .catch((err) => {
+            setError(err.response.data.message)
+        })
+    }
+
+    const getloogedInUser = async() => {
+        const response = await axios.get(`${BASE_URL}me`)
+        .catch((err) => {
+            setError(err.response.data.message)
+        })
+    }
     const addIncome = async (income) => {
         const response = await axios.post(`${BASE_URL}add-income`, income)
             .catch((err) =>{
@@ -87,8 +108,12 @@ export const GlobalProvider = ({children}) => {
     }
 
 
+
+
     return (
         <GlobalContext.Provider value={{
+            register,
+            login,
             addIncome,
             getIncomes,
             incomes,

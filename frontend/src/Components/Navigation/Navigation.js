@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import styled from 'styled-components'
 import avatar from '../../img/avatar.png'
 import { signout } from '../../utils/Icons'
@@ -6,14 +6,12 @@ import { menuItems } from '../../utils/menuItems'
 
 function Navigation({active, setActive}) {
     
+    
     return (
         <NavStyled>
             <div className="user-con">
                 <img src={avatar} alt="" />
-                <div className="text">
-                    <h2>Mike</h2>
-                    <p>Your Money</p>
-                </div>
+                
             </div>
             <ul className="menu-items">
                 {menuItems.map((item) => {
@@ -38,24 +36,25 @@ function Navigation({active, setActive}) {
 
 const NavStyled = styled.nav`
     padding: 2rem 1.5rem;
-    width: 374px;
-    height: 100%;
+    width: 100%;
+    height: 150px;
     background: rgba(252, 246, 249, 0.78);
     border: 3px solid #FFFFFF;
     backdrop-filter: blur(4.5px);
     border-radius: 32px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     gap: 2rem;
     .user-con{
-        height: 100px;
+        height:70px;
+        width:30px;
         display: flex;
         align-items: center;
         gap: 1rem;
         img{
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
             background: #fcf6f9;
@@ -72,10 +71,12 @@ const NavStyled = styled.nav`
     }
 
     .menu-items{
-        flex: 1;
+        padding:20px 70px;
+        flex:1;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         li{
+            padding: 0px 0px;
             display: grid;
             grid-template-columns: 40px auto;
             align-items: center;

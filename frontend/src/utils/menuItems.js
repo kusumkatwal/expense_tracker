@@ -25,4 +25,15 @@ export const menuItems = [
         icon: expenses,
         link: "/dashboard",
     },
+    {
+        id: 5,
+        title: "Registration",
+        icon: trend,
+        link: "/register",
+    },{
+        id: 6,
+        title: "Login",
+        icon: dashboard,
+        link: "/login"
+    }
 ]
