@@ -10,6 +10,7 @@ import Login from './Components/Login/login'
 import Registration from './Components/Registration/Registration';
 import Expenses from './Components/Expenses/Expenses';
 import { useGlobalContext } from './context/globalContext';
+import Homepage from './Components/homepage/homepage';
 
 function App() {
   const [active, setActive] = useState(1)
@@ -20,7 +21,7 @@ function App() {
   const displayData = () => {
     switch(active){
       case 1:
-        return <Dashboard />
+        return <Homepage/>
       case 2:
         return <Dashboard />
       case 3:
@@ -32,7 +33,7 @@ function App() {
       case 6: 
         return <Login/>
       default: 
-        return <Dashboard />
+        return <Homepage/>
     }
   }
 

@@ -1,0 +1,237 @@
+@import '~@flaticon/flaticon-uicons/css/all/all.css';
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+/*
+#1D2F43
+
+#ECF0F7
+#95A9CC
+#7D95C1
+
+#AFB4BF
+#1D2F43
+#455C8E
+#E17633*/
+
+*{
+    margin:0px;
+    padding: 0px;
+    font-family: "Hind Siliguri", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+   
+}
+body{
+    background-color: #ECF0F7;
+    
+}
+
+.main
+{
+    padding:40px;
+    display: flex;
+    flex-direction: column;
+    margin:0px;
+    padding: 0px;
+    font-family: "Hind Siliguri", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+.main-row
+{
+    display: flex;
+    flex-direction: row;
+}
+.main-heading{
+    height: 100px;
+}
+#main-head{
+    color:#1D2F43;
+    font-size: 35px;
+    padding:20px;
+}
+.main-left
+{
+    margin:0px 50px;
+    display: flex;
+    flex-direction: column;
+}
+.dashboard-main-left{
+    padding: 40px 25px;
+    border-radius: 25px;
+    height: 250px;
+    width:650px;
+    background-color:white;
+}
+.greeting
+{
+    margin:5px 35px;
+
+}
+.greeting h2{
+    font-size: 35px;
+    color:#1D2F43;
+  font-weight: 500;
+}
+.tasks{
+    margin-top:30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+   
+}
+.greeting-text
+{
+    padding:10px  0px;
+    font-size: 18px;
+    color:#AFB4BF;
+    font-weight: 500;
+}
+.task{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color:#1D2F43;
+    font-size: 15px;
+    text-justify: auto;
+    width: 150px;
+}
+.task:hover p{
+    color: #455C8E;
+    text-decoration: underline;
+}
+.task #a{
+    color:#1D2F43;
+}
+#b{
+    color:#E17633;
+}
+#c{
+    color:#455C8E;
+}
+#d{
+    color:rgb(218, 48, 48);
+}
+.desc
+{
+    padding-left: 30px;
+
+}
+.notification{
+    display: flex;
+    flex-direction: column;
+}
+.notification-top{
+    display: flex;
+    flex-direction: row;
+}
+.search-bar{
+    flex:45%;
+}
+.add-new-safe{
+    margin: 30px;
+    position: relative;
+    left:250px;
+    background-color:#3D67A9;
+   height:50px;
+   width: 180px;
+   border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0px 8px 8px #89A5D1;
+    transition: background-color 0.3s ease;
+    transform: translateY(-5px);
+}
+
+.add-new-safe:hover {
+    background-color: #f4ba0d;
+    font-size: 17px;
+    transform: translateY(-5px);
+}
+
+.add-new-safe .icon {
+    margin-right: 8px;
+    margin-top: 5px;
+}
+.add-new-safe:hover{
+    background-color: transparent;
+    /* border:1px solid #1D2F43 ; */
+    color:#1D2F43;
+    font-weight: bold;
+    /* box-shadow: 8px 8px -8px -8px #89A5D1; */
+}
+.add-new-safe p{
+    padding:8px;
+}
+
+.notification-main{
+height: 100px;
+}
+.notification-title{
+    display: flex;
+    flex-direction: row;
+     margin:5px 20px; 
+    color:#1D2F43;
+    font-weight: 500;
+    font-size: 18px;
+    /* justify-content: center; */
+    align-items: center;
+}
+.notification-title p {
+    padding:5px;
+}
+.notification-card{
+
+}
+.card{
+    height: 70px;
+    width: 450px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.notification-icon{
+    padding:10px 15px;
+    border-radius: 15px;
+    margin-right:40px;
+    background-color:#89A5D1;  
+}
+.message{
+    font-size: 17px;
+    color:#1D2F43;
+}
+.dashboard-main-left {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dashboard-image-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 20px; 
+    margin-right: 20px; 
+}
+
+.dashboard-main-down1,
+.dashboard-main-down2,
+.dashboard-main-down3,
+.dashboard-main-down4 {
+    display: inline-block;
+
+    align-items: center;
+    justify-content: center;
+    padding: 40px 25px;
+    border-radius: 20px;
+    height: 110px;
+    width: 150px;
+    margin-top: 30px;
+    background-color: white;
+    margin-right: 20px; 
+}
