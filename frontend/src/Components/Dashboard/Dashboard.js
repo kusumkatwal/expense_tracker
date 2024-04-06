@@ -6,7 +6,7 @@ import History from '../../History/History';
 import { InnerLayout } from '../../styles/Layouts';
 // import { dollar } from '../../utils/Icons';
 import Chart from '../Chart/Chart';
-import Algorithm from '../../Algorithm/linear_regression';
+import Prediction from '../Predict/Prediction';
 
 function Dashboard() {
     const {totalExpenses,incomes, expenses, totalIncome, totalBalance, getIncomes, getExpenses } = useGlobalContext()
@@ -42,7 +42,9 @@ function Dashboard() {
                                     Rs {totalBalance()}
                                 </p>
                             </div>
+                            
                         </div>
+                        <Prediction/>
                     </div>
                     <div className="history-con">
                         <History />
@@ -64,10 +66,14 @@ function Dashboard() {
                                 Rs{Math.max(...expenses.map(item => item.amount))}
                             </p>
                         </div>
-                        {/* <Prediction/> */}
-                        <Algorithm/>
+                       
                     </div>
+                    <div className='prediction-con'>
+                    
+                    </div>
+                    
                 </div>
+                
             </InnerLayout>
         </DashboardStyled>
     )

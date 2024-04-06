@@ -6,8 +6,8 @@ import Orb from './Components/Orb/Orb'
 import Navigation from './Components/Navigation/Navigation'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income'
-// import Login from './Components/Login/login'
-// import Registration from './Components/Registration/Registration';
+import Login from './Components/Login/login'
+import Registration from './Components/Registration/Registration';
 import Expenses from './Components/Expenses/Expenses';
 import { useGlobalContext } from './context/globalContext';
 
@@ -28,9 +28,9 @@ function App() {
       case 4: 
         return <Expenses />
       case 5: 
-      //  return <Registration/>
+       return <Registration/>
       case 6: 
-        // return <Login/>
+        return <Login/>
       default: 
         return <Dashboard />
     }

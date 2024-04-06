@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import { plus } from '../../utils/Icons';
 
 function Login() {
-    
+
     const {addIncome, getIncomes,login, error, setError} = useGlobalContext()
     const [inputState, setInputState] = useState({
         email: '',
@@ -109,4 +109,4 @@ const FormStyled = styled.form`
     }
 `;
 
-export default Login()
+export default Login

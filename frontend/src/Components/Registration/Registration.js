@@ -11,13 +11,12 @@ function Registration() {
     const [inputState, setInputState] = useState({
         firstname: '',
         lastname: '',
-        date: '',
         mobilenumber: '',
        email: '',
         password: '',
     })
 
-    const { firstname, lastname, date, mobilenumber, email, password } = inputState;
+    const { firstname, lastname, mobilenumber, email, password } = inputState;
 
     const handleInput = name => e => {
         setInputState({...inputState, [name]: e.target.value})
@@ -30,7 +29,6 @@ function Registration() {
         setInputState({
             firstname: '',
             lastname: '',
-            date: '',
             mobilenumber: '',
             email: '',
             password: ''
@@ -54,17 +52,6 @@ function Registration() {
                 name={'lastname'} 
                 placeholder={'Last Name'}
                 onChange={handleInput('lastname')} 
-            />
-        </div>
-        <div className="input-control">
-            <DatePicker 
-                id='date'
-                placeholderText='Enter Your Birthdate'
-                selected={date}
-                dateFormat="dd/MM/yyyy"
-                onChange={(date) => {
-                    setInputState({...inputState, date: date})
-                }}
             />
         </div>
         <div className="input-control">
@@ -151,4 +138,4 @@ const FormStyled = styled.form`
     }
 `;
 
-export default Registration()
+export default Registration

@@ -12,24 +12,44 @@ export const GlobalProvider = ({children}) => {
     const [incomes, setIncomes] = useState([])
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
+    const [jwt, setJwt] = useState(null)
+    const [monthlyincome, setMonthlyincome] = useState([])
+    const [monthlyexpense, setMonthlyexpense] = useState([])
+    const [predictedValue, setPredictedValue] = useState()
 
     //calculate incomes
     const register = async (userDetails) => {
         const response = await axios.post(`${BASE_URL}register`, userDetails)
-        .catch((err) => {
-            setError(err.response.data.message)
-        })
-        login()
+        return(response.data)
+        // setError(response.data.message)
+        //  .catch((err) => {
+        //     setError(err.response.data.message)
+        // })
+      
     }
 
     const login = async (login_data) => {
         const response = await axios.post(`${BASE_URL}login`, login_data)
+        
         .catch((err) => {
             setError(err.response.data.message)
         })
     }
 
-    const getloogedInUser = async() => {
+    const monthlyIncome = async () => {
+        const response = await axios.get(`${BASE_URL}get-monthly-income`)
+        console.log(response.data)
+        setMonthlyincome(response.data)
+        
+    }
+
+    const monthlyExpense = async () => {
+        const response = await axios.get(`${BASE_URL}get-monthly-expense`)
+        setMonthlyexpense(response.data)
+       
+    }
+
+    const getloggedInUser = async() => {
         const response = await axios.get(`${BASE_URL}me`)
         .catch((err) => {
             setError(err.response.data.message)
@@ -93,6 +113,12 @@ export const GlobalProvider = ({children}) => {
         return totalIncome;
     }
 
+    const predict = async(test) => {
+        const response = await axios.post(`${BASE_URL}predict`, test)
+        setPredictedValue(response.data)
+           
+        return response
+    }
 
     const totalBalance = () => {
         return totalIncome() - totalExpenses()
@@ -127,7 +153,13 @@ export const GlobalProvider = ({children}) => {
             totalBalance,
             transactionHistory,
             error,
-            setError
+            setError,
+            setJwt,
+            jwt,
+            predict,
+            monthlyExpense,
+            monthlyIncome,monthlyexpense,monthlyincome,
+            predictedValue
         }}>
             {children}
         </GlobalContext.Provider>
