@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 
 exports.register = async(req, res) => {
-    console.log('entering')
+    
     try{
-       
+        console.log('entering')
         var payload = req.body;
         payload.password = bcrypt.hashSync(payload.password,10);
     const user = new UserModel(payload);

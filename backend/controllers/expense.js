@@ -1,4 +1,5 @@
 const ExpenseSchema = require("../models/ExpenseModel")
+const querySvc = require("../service/query.service")
 
 
 exports.addExpense = async (req, res) => {
@@ -37,6 +38,16 @@ exports.getExpense = async (req, res) =>{
         res.status(500).json({message: 'Server Error'})
     }
 }
+
+exports.getExpensesByMonth = async (req, res) => {
+    try {
+        let response = await querySvc.getMonthlyExpenses();
+        res.status(200).json(response);
+    } catch (error) {
+        console.error('Error retrieving income records:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
 
 exports.deleteExpense = async (req, res) =>{
     const {id} = req.params;
