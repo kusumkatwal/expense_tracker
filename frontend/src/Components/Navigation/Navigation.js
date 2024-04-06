@@ -20,7 +20,7 @@ function Navigation({active, setActive}) {
                         onClick={() => setActive(item.id)}
                         className={active === item.id ? 'active': ''}
                     >
-                        {item.icon}
+
                         <span>{item.title}</span>
                     </li>
                 })}
@@ -35,23 +35,22 @@ function Navigation({active, setActive}) {
 }
 
 const NavStyled = styled.nav`
-    padding: 2rem 1.5rem;
+    
     width: 100%;
-    height: 150px;
-    background: rgba(252, 246, 249, 0.78);
-    border: 3px solid #FFFFFF;
-    backdrop-filter: blur(4.5px);
-    border-radius: 32px;
+    height: 100px;
+    background: #ECF0F7;
+    border-radius:20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 2rem;
+  gap: 2rem;
     .user-con{
+        padding:50px 20px;
         height:70px;
         width:30px;
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem;
         img{
             width: 60px;
             height: 60px;
@@ -59,7 +58,7 @@ const NavStyled = styled.nav`
             object-fit: cover;
             background: #fcf6f9;
             border: 2px solid #FFFFFF;
-            padding: .2rem;
+            padding: rem;
             box-shadow: 0px 1px 17px rgba(0, 0, 0, 0.06);
         }
         h2{
@@ -70,16 +69,16 @@ const NavStyled = styled.nav`
         }
     }
 
-    .menu-items{
-        padding:20px 70px;
+    .menu-items, .bottom-nav{
+     
         flex:1;
         display: flex;
         flex-direction: row;
         li{
-            padding: 0px 0px;
+          padding:30px 120px;
             display: grid;
             grid-template-columns: 40px auto;
-            align-items: center;
+            justify-content: center;
             margin: .6rem 0;
             font-weight: 500;
             cursor: pointer;
@@ -100,16 +99,7 @@ const NavStyled = styled.nav`
         i{
             color: rgba(34, 34, 96, 1) !important;
         }
-        &::before{
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 4px;
-            height: 100%;
-            background: #222260;
-            border-radius: 0 10px 10px 0;
-        }
+        
     }
 `;
 

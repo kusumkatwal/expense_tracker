@@ -18,9 +18,10 @@ function Dashboard() {
 
     return (
         <DashboardStyled>
-            <InnerLayout>
+           <InnerLayout>
                 <h1>All Transactions</h1>
                 <div className="stats-con">
+                    <div className='row'>
                     <div className="chart-con">
                         <Chart />
                         <div className="amount-con">
@@ -44,7 +45,6 @@ function Dashboard() {
                             </div>
                             
                         </div>
-                        <Prediction/>
                     </div>
                     <div className="history-con">
                         <History />
@@ -68,19 +68,25 @@ function Dashboard() {
                         </div>
                        
                     </div>
-                    <div className='prediction-con'>
-                    
-                    </div>
-                    
+                   </div> 
+                   <div className='bottom-row'>
+                   <InnerLayout>
+                   <Prediction/>
+                   </InnerLayout>
+                               </div>
                 </div>
                 
-            </InnerLayout>
+           </InnerLayout> 
         </DashboardStyled>
     )
 }
 
 const DashboardStyled = styled.div`
     .stats-con{
+        display:flex;
+        flex-direction: column;
+    }
+    .row{
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 2rem;
@@ -100,10 +106,14 @@ const DashboardStyled = styled.div`
                     border: 2px solid #FFFFFF;
                     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
                     border-radius: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
                     padding: 1rem;
                     p{
-                        font-size: 3.5rem;
-                        font-weight: 700;
+                        font-size: 2rem;
+                        font-weight: 500;
                     }
                 }
 
@@ -116,7 +126,7 @@ const DashboardStyled = styled.div`
                     p{
                         color: var(--color-green);
                         opacity: 0.6;
-                        font-size: 4.5rem;
+                        font-size: 2rem;
                     }
                 }
             }

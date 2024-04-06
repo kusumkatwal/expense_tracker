@@ -29,11 +29,15 @@ export const GlobalProvider = ({children}) => {
     }
 
     const login = async (login_data) => {
-        const response = await axios.post(`${BASE_URL}login`, login_data)
+        try{
+            
+            const response = await axios.post(`${BASE_URL}login`, login_data)
+        return response.data;
+        }
         
-        .catch((err) => {
+        catch(err) {
             setError(err.response.data.message)
-        })
+       }
     }
 
     const monthlyIncome = async () => {

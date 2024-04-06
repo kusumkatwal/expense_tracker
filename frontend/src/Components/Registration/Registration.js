@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import {useGlobalContext } from '../../context/globalContext';
 import styled from 'styled-components'
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from 'react-datepicker'
+// import "react-datepicker/dist/react-datepicker.css";
 import Button from '../Button/Button';
 import { plus } from '../../utils/Icons';
-
+import {toast} from 'react-toastify'
 function Registration() {
      const {register, error, setError} = useGlobalContext()
     const [inputState, setInputState] = useState({
@@ -25,7 +25,11 @@ function Registration() {
 
     const handleSubmit = e => {
         e.preventDefault()
-        register(inputState)
+       const response = register(inputState)
+       if(response)
+       {
+        toast.success ('User registered succcessfully.')
+       }
         setInputState({
             firstname: '',
             lastname: '',
@@ -36,6 +40,7 @@ function Registration() {
     }
     return (
         <FormStyled onSubmit={handleSubmit}>
+            <h1>Registration</h1>
         {error && <p className='error'>{error}</p>}
         <div className="input-control">
             <input 
@@ -92,6 +97,11 @@ function Registration() {
     )
 }
 const FormStyled = styled.form`
+h1{
+    text-align:center;
+}
+padding:10px 500px;
+margin:auto;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -130,6 +140,7 @@ const FormStyled = styled.form`
 
     .submit-btn{
         button{
+            margin:auto;
             box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
             &:hover{
                 background: var(--color-green) !important;

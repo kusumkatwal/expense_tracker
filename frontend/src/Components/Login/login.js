@@ -7,7 +7,7 @@ import { plus } from '../../utils/Icons';
 
 function Login() {
 
-    const {addIncome, getIncomes,login, error, setError} = useGlobalContext()
+    const {login, error, setError, setJwt, jwt} = useGlobalContext()
     const [inputState, setInputState] = useState({
         email: '',
         password: '',
@@ -22,7 +22,14 @@ function Login() {
 
     const handleSubmit = e => {
         e.preventDefault()
-        login(inputState)
+       const response =login(inputState)
+       console.log(response)
+    //    const token = response.promiseResult.token;
+       if(response) 
+       {
+        setJwt(response.token)
+       }
+
         setInputState({
             email: '',
             password: ''
@@ -30,6 +37,7 @@ function Login() {
     }
     return (
         <FormStyled onSubmit={handleSubmit}>
+            <h1>Login</h1>
         {error && <p className='error'>{error}</p>}
         <div className="input-control">
             <input 
@@ -51,7 +59,7 @@ function Login() {
            
         <div className="submit-btn">
                 <Button 
-                    name={'Register'}
+                    name={'Login'}
                     icon={plus}
                     bPad={'.8rem 1.6rem'}
                     bRad={'30px'}
@@ -63,6 +71,11 @@ function Login() {
     )
 }
 const FormStyled = styled.form`
+h1{
+    text-align : center;
+}
+padding:10px 500px;
+margin:auto;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -101,6 +114,7 @@ const FormStyled = styled.form`
 
     .submit-btn{
         button{
+            margin:auto;
             box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
             &:hover{
                 background: var(--color-green) !important;
