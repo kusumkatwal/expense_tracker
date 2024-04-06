@@ -1,0 +1,32 @@
+.header{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    /* flex-direction: row; */
+    /* height: 100px; */
+    text-align: center;
+    margin:10px;
+    color: #1D2F43;
+   
+}
+.header-mid, .header-right{
+    display: flex;
+    flex-direction: row;
+}
+.header-mid p {
+    padding:8px;
+    font-weight: 500;
+    font-size: 15px;
+}
+ .header-left img{
+        height:50px;
+        width:150px;
+        position: relative;
+        left: -150px;
+}
+.header-right p{ 
+
+    padding: 8px;
+    font-weight: 500;
+    font-size: 15px;
+}

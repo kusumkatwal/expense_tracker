@@ -10,7 +10,7 @@ import Login from './Components/Login/login'
 import Registration from './Components/Registration/Registration';
 import Expenses from './Components/Expenses/Expenses';
 import { useGlobalContext } from './context/globalContext';
-// import { ToastContainer } from 'react-toastify';
+
 
 function App() {
   const [active, setActive] = useState(1)
@@ -21,7 +21,7 @@ function App() {
   const displayData = () => {
     switch (active) {
       case 1:
-        return <Dashboard />
+        return <Dashboard/>
       case 2:
         return <Dashboard />
       case 3:
