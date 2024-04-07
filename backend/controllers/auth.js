@@ -47,7 +47,7 @@ exports.login = async (req, res) => {
 
         // Create and send JWT token if authentication is successful
         const token = jwt.sign({ userId: user._id }, 'ichikoaoba', { expiresIn: '1day' });
-        res.json({ token, message: 'User logged in successfully', meta: null });
+        res.json({result:token, message: 'User logged in successfully', meta: null });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ message: 'Server Error' });

@@ -5,14 +5,17 @@ const querySvc = require("../service/query.service");
 exports.addIncome = async (req, res) => {
     console.log("I am on income");
     const { title, amount, category, description, date } = req.body
+    
 
     const income = IncomeSchema({
+        userId: req.authUser._id,
         title,
         amount,
         category,
         description,
         date
     })
+    console.log(income)
 
     try {
         //validations
@@ -33,7 +36,7 @@ exports.addIncome = async (req, res) => {
 
 exports.getIncomes = async (req, res) => {
     try {
-        const incomes = await IncomeSchema.find().sort({ createdAt: -1 })
+        const incomes = await IncomeSchema.find({userId: req.authUser._id}).sort({ createdAt: -1 })
         res.status(200).json(incomes)
     } catch (error) {
         res.status(500).json({ message: 'Server Error' })

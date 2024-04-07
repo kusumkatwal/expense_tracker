@@ -4,10 +4,11 @@ import styled from 'styled-components'
 import "react-datepicker/dist/react-datepicker.css";
 import Button from '../Button/Button';
 import { plus } from '../../utils/Icons';
+import {toast} from 'react-toastify'
 
-function Login() {
+const Login = ()=> {
 
-    const {login, error, setError, setJwt, jwt} = useGlobalContext()
+    const {login, error, setError, setJwt, jwt, active, setActive} = useGlobalContext()
     const [inputState, setInputState] = useState({
         email: '',
         password: '',
@@ -20,16 +21,19 @@ function Login() {
         setError('')
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
-       const response =login(inputState)
-       console.log(response)
-    //    const token = response.promiseResult.token;
+       const response = await login(inputState)
+       const token = response.result;
+       console.log(token)
        if(response) 
        {
-        setJwt(response.token)
+        toast.success("User logged in successfully.")
+        setJwt(token)
+        setActive(1)
+        
        }
-
+      
         setInputState({
             email: '',
             password: ''

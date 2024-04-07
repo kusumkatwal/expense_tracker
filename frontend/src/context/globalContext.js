@@ -16,6 +16,7 @@ export const GlobalProvider = ({children}) => {
     const [monthlyincome, setMonthlyincome] = useState([])
     const [monthlyexpense, setMonthlyexpense] = useState([])
     const [predictedValue, setPredictedValue] = useState()
+    const [active, setActive] = useState(1)
 
     //calculate incomes
     const register = async (userDetails) => {
@@ -29,26 +30,33 @@ export const GlobalProvider = ({children}) => {
     }
 
     const login = async (login_data) => {
-        try{
-            
-            const response = await axios.post(`${BASE_URL}login`, login_data)
-        return response.data;
+        try {
+            const response = await axios.post(`${BASE_URL}login`, login_data);
+            console.log(response.data.token)
+            setJwt(response.data.token)
+            return response.data;
+        } catch (err) {
+            setError(err.response.data.message);
         }
-        
-        catch(err) {
-            setError(err.response.data.message)
-       }
     }
 
     const monthlyIncome = async () => {
-        const response = await axios.get(`${BASE_URL}get-monthly-income`)
+        const response = await axios.get(`${BASE_URL}get-monthly-income`, {
+            headers:{
+                'Authorization' :`Bearer ${jwt}` 
+            }
+        })
         console.log(response.data)
         setMonthlyincome(response.data)
         
     }
 
     const monthlyExpense = async () => {
-        const response = await axios.get(`${BASE_URL}get-monthly-expense`)
+        const response = await axios.get(`${BASE_URL}get-monthly-expense`, {
+            headers:{
+                'Authorization' : `Bearer ${jwt}` 
+            }
+        })
         setMonthlyexpense(response.data)
        
     }
@@ -60,7 +68,11 @@ export const GlobalProvider = ({children}) => {
         })
     }
     const addIncome = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-income`, income)
+        const response = await axios.post(`${BASE_URL}add-income`, income, {
+            headers:{
+                'Authorization' : `Bearer ${jwt}` 
+            }
+        })
             .catch((err) =>{
                 setError(err.response.data.message)
             })
@@ -68,13 +80,21 @@ export const GlobalProvider = ({children}) => {
     }
 
     const getIncomes = async () => {
-        const response = await axios.get(`${BASE_URL}get-incomes`)
+        const response = await axios.get(`${BASE_URL}get-incomes`, {
+            headers:{
+                'Authorization' : `Bearer ${jwt}` 
+            }
+        })
         setIncomes(response.data)
         console.log(response.data)
     }
 
     const deleteIncome = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
+        const res  = await axios.delete(`${BASE_URL}delete-income/${id}`, {
+            headers:{
+                'Authorization' : `Bearer ${jwt}` 
+            }
+        })
         getIncomes()
     }
 
@@ -90,7 +110,11 @@ export const GlobalProvider = ({children}) => {
 
     //calculate incomes
     const addExpense = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-expense`, income)
+        const response = await axios.post(`${BASE_URL}add-expense`, income, {
+            headers:{
+                'Authorization' : `Bearer ${jwt}` 
+            }
+        })
             .catch((err) =>{
                 setError(err.response.data.message)
             })
@@ -98,13 +122,21 @@ export const GlobalProvider = ({children}) => {
     }
 
     const getExpenses = async () => {
-        const response = await axios.get(`${BASE_URL}get-expenses`)
+        const response = await axios.get(`${BASE_URL}get-expenses`, {
+            headers:{
+                'Authorization' : `Bearer ${jwt}` 
+            }
+        })
         setExpenses(response.data)
         console.log(response.data)
     }
 
     const deleteExpense = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-expense/${id}`)
+        const res  = await axios.delete(`${BASE_URL}delete-expense/${id}`, {
+            headers:{
+                'Authorization' : `Bearer ${jwt}` 
+            }
+        })
         getExpenses()
     }
 
@@ -118,7 +150,11 @@ export const GlobalProvider = ({children}) => {
     }
 
     const predict = async(test) => {
-        const response = await axios.post(`${BASE_URL}predict`, test)
+        const response = await axios.post(`${BASE_URL}predict`, test, {
+            headers:{
+                'Authorization' : `Bearer ${jwt}` 
+            }
+        })
         setPredictedValue(response.data)
            
         return response
@@ -163,7 +199,8 @@ export const GlobalProvider = ({children}) => {
             predict,
             monthlyExpense,
             monthlyIncome,monthlyexpense,monthlyincome,
-            predictedValue
+            predictedValue,
+            active, setActive
         }}>
             {children}
         </GlobalContext.Provider>

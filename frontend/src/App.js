@@ -9,25 +9,50 @@ import Income from './Components/Income/Income'
 import Login from './Components/Login/login'
 import Registration from './Components/Registration/Registration';
 import Expenses from './Components/Expenses/Expenses';
+import Homepage  from './Components/Homepage/Homepage';
 import { useGlobalContext } from './context/globalContext';
-
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [active, setActive] = useState(1)
+  
 
-  const global = useGlobalContext()
-  console.log(global);
+ const {jwt,active,setActive} = useGlobalContext()
 
   const displayData = () => {
     switch (active) {
       case 1:
-        return <Dashboard/>
+        return <Homepage/>
       case 2:
-        return <Dashboard />
+        if(jwt)
+        {
+          return <Dashboard />
+        }
+        else
+        {
+          toast.error("Please login first");
+         setActive(6)
+        }
+       
       case 3:
-        return <Income />
+        if(jwt)
+        {
+          
+          return <Income />
+        }
+        else{
+          toast.error("Please login first");
+          setActive(6)
+        }
       case 4:
-        return <Expenses />
+        if(jwt)
+        {
+          return <Expenses/>
+        }
+        else{
+          toast.error("Please login first");
+          setActive(6)
+        }
       case 5:
         return <Registration />
       case 6:
@@ -51,8 +76,9 @@ function App() {
           </main>
         </MainLayout>
      
-
+    <ToastContainer/>
     </AppStyled>
+
   );
 }
 

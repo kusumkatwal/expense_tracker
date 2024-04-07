@@ -1,40 +1,46 @@
 const jwt = require('jsonwebtoken');
-const UserModel = require('../modules/user/user.model');
+const UserModel = require('..//models/UserModel');
 const authCheck = async (req, res, next) => {
    try{ 
     let token;
-
     if(req.headers['authorization']){
         token = req.headers['authorization']
     }else{
-        next({code: 401, message: "Token not set"})
+       return res.json({code: 401, message: "Token not set"})
     }
 
     //Bearer ===> {"Bearer",""}
-    token = (token.split(' ')).pop();
+   
 
     if(!token) {
-        res.json({code: 401, message: "Empty token"})
+        return res.json({code: 401, message: "Empty token"})
+    }
+    else {
+        token = token.split(' ').pop();
     }
 
-    //token set
+    if (!token) {
+        return res.status(401).json({ error: "Invalid token format" });
+    }
+
     const decoded = jwt.verify(token, "ichikoaoba")
-    // console.log(decoded)
-    const userDetail = await UserModel.findOne({_id: decoded.sub})
-    // console.log('userdetail')
+    //console.log(decoded)
+    const userDetail = await UserModel.findOne({_id: decoded.userId})
     console.log(userDetail)
-   
-    if(!userDetail) {
-        res.json({code: 401, message: "User does not exist anymore!"})
-    }else {
-        req.authUser = userDetail
-        
+    
+    if(!userDetail)
+    {
+       return res.json({code: 401, message: "User does not exist anymore!"})
+    }
+    else {
+        req.authUser = userDetail 
+        console.log(req.authUser)
         next()
     }
     
    }catch (exception){
     console.log("JWT Verification: ", exception)
-    res.json({code: 401, message: "User not authorized"})
+    return res.json({code: 401, message: "User not authorized"})
    }
 }
 

@@ -3,8 +3,17 @@ import styled from 'styled-components'
 import avatar from '../../img/avatar.png'
 import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
+import { useGlobalContext } from '../../context/globalContext'
+import {toast} from 'react-toastify'
 
 function Navigation({active, setActive}) {
+    const {jwt, setJwt} = useGlobalContext();
+    function signOut ()
+    {
+        toast.success("You are logged out.")
+        setJwt('')
+        
+    }
     
     
     return (
@@ -25,8 +34,8 @@ function Navigation({active, setActive}) {
                     </li>
                 })}
             </ul>
-            <div className="bottom-nav">
-                <li>
+            <div className="bottom-nav" >
+                <li onClick={signOut}>
                     {signout} Sign Out
                 </li>
             </div>

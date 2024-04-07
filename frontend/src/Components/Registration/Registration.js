@@ -7,7 +7,7 @@ import Button from '../Button/Button';
 import { plus } from '../../utils/Icons';
 import {toast} from 'react-toastify'
 function Registration() {
-     const {register, error, setError} = useGlobalContext()
+     const {register, error, setError, active, setActive} = useGlobalContext()
     const [inputState, setInputState] = useState({
         firstname: '',
         lastname: '',
@@ -23,12 +23,14 @@ function Registration() {
         setError('')
     }
 
-    const handleSubmit = e => {
+    const handleSubmit =async e => {
         e.preventDefault()
-       const response = register(inputState)
+       const response = await register(inputState)
+       console.log(response)
        if(response)
        {
         toast.success ('User registered succcessfully.')
+        setActive(6)
        }
         setInputState({
             firstname: '',

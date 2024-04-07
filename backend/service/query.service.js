@@ -3,7 +3,7 @@ const IncomeSchema = require('../models/IncomeModel')
 class QueryService
 {
      getMonthlyExpenses = async() => {
-       const response = await ExpenseSchema.aggregate([
+       const response = await ExpenseSchema.find({userId:req.authUser._id}).aggregate([
             {
                 $group: {
                     _id: {month:{ $month: '$date' },year: { $year: '$date' }}, // Group by month
@@ -19,7 +19,7 @@ class QueryService
     }
 
     getMonthlyIncome = async() => {
-        const response =  await IncomeSchema.aggregate([
+        const response =  await IncomeSchema.find({userId:req.authUser._id}).aggregate([
             {
                 $group: {
                     _id: {month:{ $month: '$date' },year: { $year: '$date' }}, // Group by month
