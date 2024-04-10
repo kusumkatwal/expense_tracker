@@ -1,5 +1,3 @@
-const querySvc = require('../service/query.service')
-
 class Algorithm{
     
     mean = (X) => {
@@ -32,9 +30,9 @@ class Algorithm{
         }
 
         var mean_result = result / x.length;
-
         return (mean_result);
     }
+    
     coefficient = (x, y) => {
         const x_mean = this.mean(x);
         const y_mean = this.mean(y);
@@ -49,31 +47,15 @@ class Algorithm{
     
     }
 
-    make_prediction = async(test)=>
+    make_prediction = async(incomes, expenses, test)=>
     {
         console.log(test)
-        const incomes = await querySvc.getMonthlyIncome();
-        const expenses = await querySvc.getMonthlyExpenses();
-         
-        // const trainSize = Math.floor(0.7 * incomes.length);
 
-        // const trainSet_income = incomes.slice(0, trainSize);
-        // const testSet_income = incomes.slice(trainSize);
-        // const trainSet_expense = expenses.slice(0, trainSize);
-        // const testSet_expense = expenses.slice(trainSize)
-       
-        
         const x_train = incomes.map((income) => income.totalAmount);
         const y_train = expenses.map((expense) => expense.totalAmount);
-
-        // const x_test = testSet_income.map((test) => test.totalAmount)
-        // const y_test = testSet_expense.map((test) => test.totalAmount)
-   
         const [intercept, slope] =this.coefficient(x_train, y_train);
       
         const y_pred =  intercept + test * slope;
-
-        // const y_pred = this.mean(y_pred).toFixed(2)
 
         console.log('the predicted val is ' + y_pred);
         return (y_pred);    

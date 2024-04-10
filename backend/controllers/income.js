@@ -45,13 +45,36 @@ exports.getIncomes = async (req, res) => {
 
 exports.getIncomeByMonth = async (req, res) => {
     try {
-        let response = await querySvc.getMonthlyIncome();
+        const id = req.authUser._id;
+        let response = await querySvc.getMonthlyIncome(id);
         res.status(200).json(response);
     } catch (error) {
         console.error('Error retrieving income records:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+exports.getIncomeByCategory = async (req,res) => {
+    try{
+        const id = req.authUser._id;
+        let response = await querySvc.getCategoryIncome(id);
+        res.status(200).json(response);
+    }catch(error) {
+        console.error('Error retrieving records: ', error);
+        res.status(500).json({message : 'Internal Server Error' });
+    }
+}
+
+exports.getMonthlyIncomeByCategory = async (req, res) => {
+    try{
+        const id = req.authUser._id;
+        let response = await querySvc.getMonthlyIncomeByCategory(id);
+        res.status(200).json(response);
+    }catch(error) {
+        console.error('Error retrieving income records: ', error)
+        res.status(500).json({ message : "Internal Server Error"})
+    }
+}
 
 
 exports.deleteIncome = async (req, res) => {
@@ -64,3 +87,4 @@ exports.deleteIncome = async (req, res) => {
             res.status(500).json({ message: 'Server Error' })
         })
 }
+

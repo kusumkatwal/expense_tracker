@@ -42,13 +42,36 @@ exports.getExpense = async (req, res) =>{
 
 exports.getExpensesByMonth = async (req, res) => {
     try {
-        let response = await querySvc.getMonthlyExpenses();
+        let id = req.authUser._id;
+        let response = await querySvc.getMonthlyExpenses(id);
         res.status(200).json(response);
     } catch (error) {
         console.error('Error retrieving income records:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+exports.getCategoryExpense = async (req,res) => {
+    try{
+        let id = req.authUser._id;
+        let response = await querySvc.getCategoryExpense(id);
+        res.status(200).json(response);
+    }catch(error) 
+    {
+        console.error('Error retrieving income records:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+exports.getMonthlyExpenseByCategory = async (req, res) => {
+    try{
+        const id = req.authUser._id;
+        let response = await querySvc.getMonthlyExpenseByCategory(id);
+        res.status(200).json(response);
+    }catch(error) {
+        console.error('Error retrieving income records: ', error)
+        res.status(500).json({ message : "Internal Server Error"})
+    }
+}
 
 exports.deleteExpense = async (req, res) =>{
     const {id} = req.params;

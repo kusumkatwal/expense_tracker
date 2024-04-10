@@ -1,33 +1,118 @@
 const ExpenseSchema = require('../models/ExpenseModel')
 const IncomeSchema = require('../models/IncomeModel')
-class QueryService
-{
-     getMonthlyExpenses = async() => {
-       const response = await ExpenseSchema.find({userId:req.authUser._id}).aggregate([
+class QueryService {
+    getMonthlyExpenses = async (id) => {
+        const response = await ExpenseSchema.aggregate([
+            {
+                $match: { userId: id } // Filtering documents by userId
+            },
             {
                 $group: {
-                    _id: {month:{ $month: '$date' },year: { $year: '$date' }}, // Group by month
-                    totalAmount: { $sum: '$amount' } // Calculate total amount for each month
+                    _id: { month: { $month: '$date' }, year: { $year: '$date' } },
+                    totalAmount: { $sum: '$amount' }
                 }
             },
             {
-                $sort: { '_id': 1 } // Sort by month (optional)
+                $sort: { '_id': 1 }
             }
         ]).exec()
 
         return response
     }
 
-    getMonthlyIncome = async() => {
-        const response =  await IncomeSchema.find({userId:req.authUser._id}).aggregate([
+    getMonthlyIncome = async (id) => {
+        const response = await IncomeSchema.aggregate([
+            {
+                $match: { userId: id }
+            },
             {
                 $group: {
-                    _id: {month:{ $month: '$date' },year: { $year: '$date' }}, // Group by month
-                    totalAmount: { $sum: '$amount' } // Calculate total amount for each month
+                    _id: { month: { $month: '$date' }, year: { $year: '$date' } },
+                    totalAmount: { $sum: '$amount' }
                 }
             },
             {
-                $sort: { '_id': 1 } // Sort by month (optional)
+                $sort: { '_id': 1 }
+            }
+        ]).exec()
+
+        return response;
+    }
+
+    getCategoryIncome = async (id) => {
+        const response = await IncomeSchema.aggregate([
+            { 
+                $match: { userId: id }
+            },
+            {
+                $group: {
+                    _id: {
+                        category : '$category'
+                    },
+                    totalAmount : {$sum : '$amount'}
+                }
+            }
+        ]).exec()
+        return response;
+    }
+
+    getCategoryExpense = async (id) => {
+        const response = await ExpenseSchema.aggregate([
+            { 
+                $match: { userId: id }
+            },
+            {
+                $group: {
+                    _id: {
+                        category : '$category'
+                    },
+                    totalAmount : {$sum : '$amount'}
+                }
+            }
+        ]).exec()
+        return response;
+    }
+
+    getMonthlyIncomeByCategory = async (id) => {
+        const response = await IncomeSchema.aggregate([
+            {
+                $match: { userId: id }
+            },
+            {
+                $group: {
+                    _id: {
+                        month: { $month: '$date' },
+                        year: { $year: '$date' },
+                        category: '$category'
+                    },
+                    totalAmount: { $sum: '$amount' }
+                }
+            },
+            {
+                $sort: { '_id': 1 }
+            }
+        ]).exec()
+
+        return response;
+    }
+
+    getMonthlyExpenseByCategory = async (id) => {
+        const response = await ExpenseSchema.aggregate([
+            {
+                $match: { userId: id }
+            },
+            {
+                $group: {
+                    _id: {
+                        month: { $month: '$date' },
+                        year: { $year: '$date' },
+                        category: '$category'
+                    },
+                    totalAmount: { $sum: '$amount' }
+                }
+            },
+            {
+                $sort: { '_id': 1 }
             }
         ]).exec()
 
@@ -36,4 +121,4 @@ class QueryService
 }
 
 var querySvc = new QueryService()
-module.exports  = querySvc
+module.exports = querySvc

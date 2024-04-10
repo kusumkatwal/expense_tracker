@@ -26,7 +26,6 @@ const authCheck = async (req, res, next) => {
     const decoded = jwt.verify(token, "ichikoaoba")
     //console.log(decoded)
     const userDetail = await UserModel.findOne({_id: decoded.userId})
-    console.log(userDetail)
     
     if(!userDetail)
     {
@@ -34,7 +33,6 @@ const authCheck = async (req, res, next) => {
     }
     else {
         req.authUser = userDetail 
-        console.log(req.authUser)
         next()
     }
     
