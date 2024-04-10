@@ -7,7 +7,7 @@ const BASE_URL = "http://localhost:3006/api/v1/";
 
 const GlobalContext = React.createContext()
 
-export const GlobalProvider = ({children}) => {
+export const GlobalProvider = ({ children }) => {
 
     const [incomes, setIncomes] = useState([])
     const [expenses, setExpenses] = useState([])
@@ -17,22 +17,26 @@ export const GlobalProvider = ({children}) => {
     const [monthlyexpense, setMonthlyexpense] = useState([])
     const [predictedValue, setPredictedValue] = useState()
     const [active, setActive] = useState(1)
+    const [username, setUsername] = useState()
+    const [categoryData, setCategoryData] = useState([])
+    const [expenseData, setExpenseData] = useState([])
+    const [category, setCategory] = useState([])
 
     //calculate incomes
     const register = async (userDetails) => {
         const response = await axios.post(`${BASE_URL}register`, userDetails)
-        return(response.data)
+        return (response.data)
         // setError(response.data.message)
         //  .catch((err) => {
         //     setError(err.response.data.message)
         // })
-      
+
     }
 
     const login = async (login_data) => {
         try {
             const response = await axios.post(`${BASE_URL}login`, login_data);
-            console.log(response.data.token)
+            console.log(response.data)
             setJwt(response.data.token)
             return response.data;
         } catch (err) {
@@ -42,38 +46,77 @@ export const GlobalProvider = ({children}) => {
 
     const monthlyIncome = async () => {
         const response = await axios.get(`${BASE_URL}get-monthly-income`, {
-            headers:{
-                'Authorization' :`Bearer ${jwt}` 
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         })
         console.log(response.data)
         setMonthlyincome(response.data)
-        
+
     }
 
     const monthlyExpense = async () => {
         const response = await axios.get(`${BASE_URL}get-monthly-expense`, {
-            headers:{
-                'Authorization' : `Bearer ${jwt}` 
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         })
         setMonthlyexpense(response.data)
-       
+
     }
 
-    const getloggedInUser = async() => {
-        const response = await axios.get(`${BASE_URL}me`)
-        .catch((err) => {
-            setError(err.response.data.message)
+    const monthlyIncomeCategory = async () => {
+        const response = await axios.get(`${BASE_URL}getincomebycategory`, {
+            headers : {
+                'Authorization' : `Bearer ${jwt}`
+            }
         })
+        setCategoryData(response.data)
+        return response.data
+    }
+
+    const monthlyExpenseCategory = async () => {
+        const response = await axios.get(`${BASE_URL}getexpensebycategory`, {
+            headers : {
+                'Authorization' : `Bearer ${jwt}`
+            }
+        })
+        setExpenseData(response.data)
+        return response.data        
+    }
+
+    const categoryExpense = async() => {
+        const response = await axios.get(`${BASE_URL}get-category-expense`, {
+            headers : {
+                'Authorization' : `Bearer ${jwt}`
+            }
+        })
+        setCategory(response.data)
+        return response.data
+    }
+
+    const getloggedInUser = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}me`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${jwt}`
+                    }
+                })
+            setUsername(response.data)
+            return response.data
+        }
+        catch (err) {
+            setError(err.response.data.message)
+        }
     }
     const addIncome = async (income) => {
         const response = await axios.post(`${BASE_URL}add-income`, income, {
-            headers:{
-                'Authorization' : `Bearer ${jwt}` 
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         })
-            .catch((err) =>{
+            .catch((err) => {
                 setError(err.response.data.message)
             })
         getIncomes()
@@ -81,18 +124,17 @@ export const GlobalProvider = ({children}) => {
 
     const getIncomes = async () => {
         const response = await axios.get(`${BASE_URL}get-incomes`, {
-            headers:{
-                'Authorization' : `Bearer ${jwt}` 
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         })
         setIncomes(response.data)
-        console.log(response.data)
     }
 
     const deleteIncome = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-income/${id}`, {
-            headers:{
-                'Authorization' : `Bearer ${jwt}` 
+        const res = await axios.delete(`${BASE_URL}delete-income/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         })
         getIncomes()
@@ -100,7 +142,7 @@ export const GlobalProvider = ({children}) => {
 
     const totalIncome = () => {
         let totalIncome = 0;
-        incomes.forEach((income) =>{
+        incomes.forEach((income) => {
             totalIncome = totalIncome + income.amount
         })
 
@@ -111,11 +153,11 @@ export const GlobalProvider = ({children}) => {
     //calculate incomes
     const addExpense = async (income) => {
         const response = await axios.post(`${BASE_URL}add-expense`, income, {
-            headers:{
-                'Authorization' : `Bearer ${jwt}` 
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         })
-            .catch((err) =>{
+            .catch((err) => {
                 setError(err.response.data.message)
             })
         getExpenses()
@@ -123,18 +165,17 @@ export const GlobalProvider = ({children}) => {
 
     const getExpenses = async () => {
         const response = await axios.get(`${BASE_URL}get-expenses`, {
-            headers:{
-                'Authorization' : `Bearer ${jwt}` 
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         })
         setExpenses(response.data)
-        console.log(response.data)
     }
 
     const deleteExpense = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-expense/${id}`, {
-            headers:{
-                'Authorization' : `Bearer ${jwt}` 
+        const res = await axios.delete(`${BASE_URL}delete-expense/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         })
         getExpenses()
@@ -142,21 +183,21 @@ export const GlobalProvider = ({children}) => {
 
     const totalExpenses = () => {
         let totalIncome = 0;
-        expenses.forEach((income) =>{
+        expenses.forEach((income) => {
             totalIncome = totalIncome + income.amount
         })
 
         return totalIncome;
     }
 
-    const predict = async(test) => {
+    const predict = async (test) => {
         const response = await axios.post(`${BASE_URL}predict`, test, {
-            headers:{
-                'Authorization' : `Bearer ${jwt}` 
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         })
         setPredictedValue(response.data)
-           
+
         return response
     }
 
@@ -198,15 +239,19 @@ export const GlobalProvider = ({children}) => {
             jwt,
             predict,
             monthlyExpense,
-            monthlyIncome,monthlyexpense,monthlyincome,
+            monthlyIncome, monthlyexpense, monthlyincome,
             predictedValue,
-            active, setActive
+            active, setActive,
+            getloggedInUser, username,
+            categoryData, monthlyIncomeCategory,
+            expenseData, monthlyExpenseCategory,
+            categoryExpense, category
         }}>
             {children}
         </GlobalContext.Provider>
     )
 }
 
-export const useGlobalContext = () =>{
+export const useGlobalContext = () => {
     return useContext(GlobalContext)
 }

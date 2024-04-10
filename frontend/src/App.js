@@ -84,11 +84,11 @@ function App() {
 
 const AppStyled = styled.div`
   height: 100vh;
-  background-color : rgba(252, 246, 249, 0.78);
+  background-color : #ECF0F7;
   position: relative;
   main{
     flex: 1;
-    background: rgba(252, 246, 249, 0.78);
+    background: #ECF0F7;
     overflow-x: hidden;
        &::-webkit-scrollbar{
          width: 0;

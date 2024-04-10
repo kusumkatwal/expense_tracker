@@ -1,9 +1,10 @@
 import {dashboard, expenses, transactions, trend} from '../utils/Icons'
+import title from '../assests/title.png'
 
 export const menuItems = [
     {
         id: 1,
-        title: 'Homeoage',
+        title: "Homepage",
         icon: dashboard,
         link: '/homepage'
     },

@@ -1,6 +1,5 @@
 // import React, { useState } from 'react'
 import styled from 'styled-components'
-import avatar from '../../img/avatar.png'
 import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
 import { useGlobalContext } from '../../context/globalContext'
@@ -19,8 +18,7 @@ function Navigation({active, setActive}) {
     return (
         <NavStyled>
             <div className="user-con">
-                <img src={avatar} alt="" />
-                
+                            
             </div>
             <ul className="menu-items">
                 {menuItems.map((item) => {
@@ -47,7 +45,7 @@ const NavStyled = styled.nav`
     
     width: 100%;
     height: 100px;
-    background: #ECF0F7;
+    background: white;
     border-radius:20px;
     display: flex;
     flex-direction: row;
