@@ -25,13 +25,15 @@ function Registration() {
 
     const handleSubmit =async e => {
         e.preventDefault()
-       const response = await register(inputState)
+       const bool =   validate(inputState)
+         var response;
+      if(bool == true)
+      {
+      response = await register(inputState)
+      toast.success ('User registered succcessfully.')
+      setActive(6)
+      }
        console.log(response)
-       if(response)
-       {
-        toast.success ('User registered succcessfully.')
-        setActive(6)
-       }
         setInputState({
             firstname: '',
             lastname: '',
@@ -39,6 +41,37 @@ function Registration() {
             email: '',
             password: ''
         })
+    }
+
+    const validate = (data) => {
+        if(!data.firstname || !data.lastname || !data.mobilenumber || !data.email || !data.password)
+        {
+            setError("Please fill out all fields.")
+            return false; 
+        }
+        if(data.firstname.length <2 || data.firstname.length>10){
+            setError("First name should contain more than 2 and less than 10 letters.")
+            return false;
+        }
+        if(data.lastname.length <2 || data.lastname.length>10){
+            setError("Last name should contain more than 2 and less than 10 letters.")
+            return false;
+        }
+        if(!/\S+@\S+\.\S+/.test(data.email)){
+            setError("Invalid email address.")
+            return false;
+        }
+        if(data.password.length <5)
+        {
+            setError("Password must be 5 characters long.")
+            return false;
+        }
+        if(!/\d/.test(data.password))
+        {
+            setError("Password must contain atleast one number.")
+            return false;
+        }
+        return true;
     }
     return (
         <FormStyled onSubmit={handleSubmit}>

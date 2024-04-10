@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from '../../context/globalContext';
 import Button from '../Button/Button';
 import { plus } from '../../utils/Icons';
+import {toast} from 'react-toastify'
 
 
 function Form() {
@@ -26,7 +27,11 @@ function Form() {
 
     const handleSubmit = e => {
         e.preventDefault()
+       const bool = validate(inputState)
+       if(bool == true){
         addIncome(inputState)
+        toast.success("Income added successfully.")
+       }
         setInputState({
             title: '',
             amount: '',
@@ -36,6 +41,24 @@ function Form() {
         })
     }
 
+    const validate = (data) => {
+        if(!data.title || !data.amount || !data.date || !data.category || !data.description)
+        {
+            setError("Please fill out all fields.")
+            return false;
+        }
+        if(isNaN(data.amount))
+        {
+            setError("Amount must be a number.");
+            return false;
+        }
+        if(data.amount <0)
+        {
+            setError("Amount must be positive.");
+            return false;
+        }
+        return true; 
+    }
     return (
         <FormStyled onSubmit={handleSubmit}>
             {error && <p className='error'>{error}</p>}

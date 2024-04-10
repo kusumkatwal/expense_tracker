@@ -23,21 +23,37 @@ const Login = ()=> {
 
     const handleSubmit = async e => {
         e.preventDefault()
-       const response = await login(inputState)
-       const token = response.result;
-       console.log(token)
-       if(response) 
-       {
-        toast.success("User logged in successfully.")
+        const bool = validate(inputState);
+        if(bool == true)
+        {
+            const response = await login(inputState)
+            const token = response.result;
+            toast.success("User logged in successfully.")
         setJwt(token)
         setActive(1)
-        
-       }
-      
+        }      
         setInputState({
             email: '',
             password: ''
         })
+    }
+
+    const validate = (data) => {
+        if(!/\S+@\S+\.\S+/.test(data.email)){
+            setError("Invalid email address.")
+            return false;
+        }
+        if(data.password.length <5)
+        {
+            setError("Password must be 5 characters long.")
+            return false;
+        }
+        if(!/\d/.test(data.password))
+        {
+            setError("Password must contain atleast one number.")
+            return false;
+        }
+        return true;
     }
     return (
         <FormStyled onSubmit={handleSubmit}>

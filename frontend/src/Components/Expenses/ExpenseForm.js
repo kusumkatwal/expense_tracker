@@ -26,7 +26,11 @@ function ExpenseForm() {
 
     const handleSubmit = e => {
         e.preventDefault()
-        addExpense(inputState)
+        const bool = validate(inputState)
+        if(bool == true) {
+            addExpense(inputState)
+        }
+        
         setInputState({
             title: '',
             amount: '',
@@ -36,6 +40,24 @@ function ExpenseForm() {
         })
     }
 
+    const validate = (data) => {
+        if(!data.title || !data.amount || !data.date || !data.category || !data.description)
+        {
+            setError("Please fill out all fields.")
+            return false;
+        }
+        if(isNaN(data.amount))
+        {
+            setError("Amount must be a number.");
+            return false;
+        }
+        if(data.amount <0)
+        {
+            setError("Amount must be positive.");
+            return false;
+        }
+        return true; 
+    }
     return (
         <ExpenseFormStyled onSubmit={handleSubmit}>
             {error && <p className='error'>{error}</p>}
