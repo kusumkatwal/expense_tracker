@@ -22,16 +22,11 @@ export const GlobalProvider = ({ children }) => {
     const [expenseData, setExpenseData] = useState([])
     const [category, setCategory] = useState([])
 
-    //calculate incomes
+    
     const register = async (userDetails) => {
         const response = await axios.post(`${BASE_URL}register`, userDetails)
         return (response.data)
-        // setError(response.data.message)
-        //  .catch((err) => {
-        //     setError(err.response.data.message)
-        // })
-
-    }
+          }
 
     const login = async (login_data) => {
         try {
@@ -150,7 +145,6 @@ export const GlobalProvider = ({ children }) => {
     }
 
 
-    //calculate incomes
     const addExpense = async (income) => {
         const response = await axios.post(`${BASE_URL}add-expense`, income, {
             headers: {
